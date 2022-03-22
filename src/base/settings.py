@@ -20,6 +20,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd party
+    'bootstrap4',
+
     # Local
     'advert.apps.AdvertConfig',
 ]
