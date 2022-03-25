@@ -1,0 +1,15 @@
+{% extends 'layout/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <h2>Profile: {{ user.username }}</h2>
+    {% if user.first_name and user.last_name %}
+        <p>Welcome, {{ user.first_name }} {{ user.last_name }}!</p>
+    {% else %}
+        <p>Welcome!</p>
+    {% endif %}
+    <h3>Your adverts</h3>
+{% endblock %}

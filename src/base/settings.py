@@ -71,6 +71,12 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'advert.CustomUser'
+
+LOGIN_URL = 'advert:login'
+LOGIN_REDIRECT_URL = 'advert:profile'
+
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
