@@ -1,0 +1,8 @@
+Dear {{ user.username }}!
+
+You have registered on our website.
+In order to activate your profile - click on the link below
+
+{{ host }}{% url 'advert:register-activate' sign=sign %}
+
+Thanks, bye!

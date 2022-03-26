@@ -11,5 +11,8 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile/change/', views.ChangeUserInfoView.as_view(), name='profile-change'),
     path('password/change/', views.PasswordChangeView.as_view(), name='password-change'),
+    path('register/done/', views.RegisterUserDoneView.as_view(), name='register-done'),
+    path('register/activate/<str:sign>/', views.user_activate, name='register-activate'),
+    path('register/', views.RegisterUserView.as_view(), name='register'),
     path('<str:page>/', views.other_page, name='other'),
 ]

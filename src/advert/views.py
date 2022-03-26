@@ -5,15 +5,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, CreateView
+from django.views.generic.base import TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.views import PasswordChangeView
+from django.core.signing import BadSignature
 
 
 from .models import CustomUser
-from .forms import ChangeUserForm
+from .forms import ChangeUserForm, RegisterUserForm
+from .utilities import signer
 
 
 def index(request):
@@ -54,7 +57,7 @@ class ChangeUserInfoView(UpdateView, SuccessMessageMixin, LoginRequiredMixin):
 
     def get_object(self, queryset=None):
         if not queryset:
-            self.get_queryset()
+            queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
 
 
@@ -62,3 +65,30 @@ class UserPasswordChange(PasswordChangeView, LoginRequiredMixin, SuccessMessageM
     template_name = 'advert/password_change.html'
     success_url = reverse_lazy('advert:profile')
     success_message = 'Your password was successfully changed'
+
+
+class RegisterUserView(CreateView):
+    model = CustomUser
+    template_name = 'advert/register_user.html'
+    form_class = RegisterUserForm
+    success_url = reverse_lazy('advert:register-done')
+
+
+class RegisterUserDoneView(TemplateView):
+    template_name = 'advert/register_done.html'
+
+
+def user_activate(request, sign):
+    try:
+        username = signer.unsign(sign)
+    except BadSignature:
+        return render(request, 'advert/activation_done.html')
+    user = get_object_or_404(CustomUser, username=username)
+    if user.is_activated:
+        template = 'advert/user_is_activated.html'
+    else:
+        template = 'advert/activation_done.html'
+        user.is_active = True
+        user.is_activated = True
+        user.save()
+    return render(request, template)

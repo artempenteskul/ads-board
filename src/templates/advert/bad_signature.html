@@ -1,0 +1,11 @@
+{% extends 'layout/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}Error while activation{% endblock %}
+
+{% block content %}
+    <h2>Activation</h2>
+    <p>Activation was unsuccessful</p>
+    <p><a href="{% url 'advert:register' %}">Try to register again</a></p>
+{% endblock %}
