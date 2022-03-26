@@ -9,6 +9,7 @@ from django.views.generic.edit import UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.views import PasswordChangeView
 
 
 from .models import CustomUser
@@ -56,3 +57,8 @@ class ChangeUserInfoView(UpdateView, SuccessMessageMixin, LoginRequiredMixin):
             self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
 
+
+class UserPasswordChange(PasswordChangeView, LoginRequiredMixin, SuccessMessageMixin):
+    template_name = 'advert/password_change.html'
+    success_url = reverse_lazy('advert:profile')
+    success_message = 'Your password was successfully changed'
