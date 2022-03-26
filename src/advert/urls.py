@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import index, other_page, AdvertLoginView, AdvertLogout, profile
+from .views import index, other_page, AdvertLoginView, AdvertLogout, profile, ChangeUserInfoView
 
 app_name = 'advert'
 
@@ -9,5 +9,6 @@ urlpatterns = [
     path('login/', AdvertLoginView.as_view(), name='login'),
     path('logout/', AdvertLogout.as_view(), name='logout'),
     path('profile/', profile, name='profile'),
+    path('profile/change/', ChangeUserInfoView.as_view(), name='profile-change'),
     path('<str:page>/', other_page, name='other'),
 ]
