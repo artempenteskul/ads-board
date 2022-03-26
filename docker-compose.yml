@@ -11,6 +11,7 @@ services:
       - ./src/:/app/
     ports:
       - '8000:8000'
+      - '587:587'
     env_file:
       - ./src/.env
     depends_on:

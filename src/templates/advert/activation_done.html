@@ -1,0 +1,11 @@
+{% extends 'layout/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}Activation done{% endblock %}
+
+{% block content %}
+    <h2>Activation</h2>
+    <p>User was successfully activated</p>
+    <p><a href="{% url 'advert:login' %}">To login on the website</a></p>
+{% endblock %}
