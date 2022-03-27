@@ -34,11 +34,9 @@ class RegisterUserForm(forms.ModelForm):
         return password
 
     def clean(self):
-        super().clean()
-        password = self.cleaned_data['password']
-        confirm_password = self.cleaned_data['confirm_password']
-        if password and confirm_password and password != confirm_password:
+        if 'password' in self.cleaned_data and 'confirm_password' in self.cleaned_data and self.cleaned_data['password'] != self.cleaned_data['confirm_password']:
             raise ValidationError({'confirm_password': 'Passwords should match'}, code='password_mismatch')
+        return self.cleaned_data
 
     def save(self, commit=True):
         user = super().save(commit=False)
