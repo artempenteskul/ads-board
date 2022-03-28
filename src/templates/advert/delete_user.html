@@ -1,0 +1,13 @@
+{% extends 'layout/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}User deletion{% endblock %}
+
+{% block content %}
+    <h2>Deletion user: {{ object.username }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% buttons submit='Delete' %}{% endbuttons %}
+    </form>
+{% endblock %}
