@@ -10,7 +10,10 @@ from django.views.generic.base import TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.views import (
+    PasswordChangeView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+)
+
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.core.signing import BadSignature
@@ -63,10 +66,31 @@ class ChangeUserInfoView(UpdateView, SuccessMessageMixin, LoginRequiredMixin):
         return get_object_or_404(queryset, pk=self.user_id)
 
 
-class UserPasswordChange(PasswordChangeView, LoginRequiredMixin, SuccessMessageMixin):
+class UserPasswordChangeView(PasswordChangeView, LoginRequiredMixin, SuccessMessageMixin):
     template_name = 'advert/password_change.html'
     success_url = reverse_lazy('advert:profile')
     success_message = 'Your password was successfully changed'
+
+
+class UserPasswordResetView(PasswordResetView, SuccessMessageMixin):
+    template_name = 'advert/password_reset.html'
+    subject_template_name = 'email/password_reset_subject.txt'
+    email_template_name = 'email/password_reset_body.txt'
+    success_url = reverse_lazy('advert:password-reset-done')
+
+
+class UserPasswordDoneResetView(PasswordResetDoneView):
+    template_name = 'advert/password_reset_done.html'
+
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'advert/password_reset_confirm.html'
+    post_reset_login = True
+    success_url = reverse_lazy('advert:password-complete-reset')
+
+
+class UserPasswordCompleteResetView(PasswordResetCompleteView):
+    template_name = 'advert/password_reset_complete.html'
 
 
 class RegisterUserView(CreateView):
