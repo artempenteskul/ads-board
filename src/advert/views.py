@@ -13,7 +13,6 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.views import (
     PasswordChangeView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 )
-
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.core.signing import BadSignature
