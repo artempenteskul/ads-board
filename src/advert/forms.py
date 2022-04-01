@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
-from .models import CustomUser
+from .models import CustomUser, SubRubric, SuperRubric
 from .apps import user_registered
 
 
@@ -51,3 +51,16 @@ class RegisterUserForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'first_name', 'last_name', 'email', 'password', 'confirm_password', 'send_messages')
+
+
+class SubRubricForm(forms.ModelForm):
+    super_rubric = forms.ModelChoiceField(
+        queryset=SuperRubric.objects.all(),
+        empty_label=None,
+        label='Sub Rubric',
+        required=True
+    )
+
+    class Meta:
+        model = SubRubric
+        fields = '__all__'

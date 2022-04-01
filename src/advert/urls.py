@@ -19,5 +19,6 @@ urlpatterns = [
     path('register/activate/<str:sign>/', views.user_activate, name='register-activate'),
     path('register/', views.RegisterUserView.as_view(), name='register'),
     path('user/delete/', views.DeleteUserView.as_view(), name='user-delete'),
+    path('rubric/<int:pk>/', views.by_rubric, name='by-rubric'),
     path('<str:page>/', views.other_page, name='other'),
 ]
