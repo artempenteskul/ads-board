@@ -33,3 +33,7 @@ coverage.xml
 # Local
 */local/
 local/
+
+# Media
+*/media/
+media/
