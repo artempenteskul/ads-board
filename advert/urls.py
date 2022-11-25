@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import hello
+from .views import index
 
 app_name = 'advert'
 
 urlpatterns = [
-    path('hello/', hello, name='hello'),
+    path('', index, name='index'),
 ]
