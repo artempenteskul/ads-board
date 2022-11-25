@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,6 +11,6 @@
 </head>
 <body>
     <h1>About Page</h1>
-    <a href="#">Return to Home</a>
+    <a href="{% url 'advert:index' %}">Return to Home</a>
 </body>
 </html>

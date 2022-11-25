@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,6 +11,6 @@
 </head>
 <body>
     <h1>Home Page</h1>
-    <a href="#">Go to About</a>
+    <a href="{% url 'advert:about' %}">Go to About</a>
 </body>
 </html>
