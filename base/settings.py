@@ -35,7 +35,10 @@ ROOT_URLCONF = 'base.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'templates',
+            'advert/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,5 +86,9 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    'static',
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
