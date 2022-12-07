@@ -14,11 +14,9 @@ RUN pip3 install --upgrade pip
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt --no-cache-dir
 
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
 COPY . .
 
-#CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
-
-
-# --- commands to run ---
-# docker build .
-# docker run -d -p 8000:8000 {image}
+ENTRYPOINT ['./entrypoint.sh']
