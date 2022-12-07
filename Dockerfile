@@ -11,12 +11,11 @@ RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 
 RUN pip3 install --upgrade pip
 
-COPY requirements.txt .
+COPY ./requirements.txt .
 RUN pip3 install -r requirements.txt --no-cache-dir
-
-COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
 
 COPY . .
 
-ENTRYPOINT ['./entrypoint.sh']
+RUN chmod +x ./entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
