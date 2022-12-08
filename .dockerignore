@@ -1,7 +1,8 @@
 .idea
 
 venv
-*.sqlite3
 
 Dockerfile
 docker-compose.yml
+
+/db.sqlite3
