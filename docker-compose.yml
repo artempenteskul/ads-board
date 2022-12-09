@@ -9,6 +9,14 @@ services:
     container_name: web
     restart: always
     command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=secret
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=127.0.0.1
+      - DB_PORT=5432
     ports:
       - "8000:8000"
     networks:
