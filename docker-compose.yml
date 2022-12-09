@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+
   web:
     build:
       context: .
@@ -8,5 +9,20 @@ services:
     container_name: web
     command: python manage.py runserver 0.0.0.0:8000
     restart: always
+    networks:
+      - net
+    depends_on:
+      - db
     ports:
       - '8000:8000'
+
+  db:
+    image: postgres:13.0-alpine
+    container_name: postgresql_db
+    restart: always
+
+
+
+networks:
+  net:
+    driver: bridge
