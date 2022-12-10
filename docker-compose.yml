@@ -9,15 +9,8 @@ services:
     container_name: web
     restart: always
     command: python manage.py runserver 0.0.0.0:8000
-    environment:
-      - DEBUG=True
-      - SECRET_KEY=secret
-      - DB_ENGINE=django.db.backends.postgresql_psycopg2
-      - DB_NAME=postgres
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_HOST=db
-      - DB_PORT=5432
+    env_file:
+      - .env
     ports:
       - "8000:8000"
     networks:
@@ -29,10 +22,8 @@ services:
     image: postgres:13.0-alpine
     container_name: postgresql_db
     restart: always
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file:
+      - .env.db
     ports:
       - "5432:5432"
     networks:
