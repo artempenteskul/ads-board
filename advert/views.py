@@ -15,11 +15,3 @@ def other_page(request, page):
         raise Http404
 
     return render(request, template)
-
-
-def home(request):
-    return render(request, 'home.html')
-
-
-def about(request):
-    return render(request, 'about.html')
