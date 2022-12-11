@@ -50,6 +50,14 @@
             <a href="#" class="nav-link">Passenger</a>
             <a href="#" class="nav-link">Freight</a>
         </nav>
+        <section class="col border py-2">
+            {% bootstrap_messages %}
+            {% block content %}
+            {% endblock %}
+        </section>
     </div>
+    <footer class="mt-3">
+        <p class="text-right font-italic">&copy; Ads-Board 2022</p>
+    </footer>
 </body>
 </html>
