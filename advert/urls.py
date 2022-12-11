@@ -7,5 +7,5 @@ app_name = 'advert'
 
 urlpatterns = [
     path('<str:page>/', other_page, name='other'),
-    path('/', index, name='index'),
+    path('', index, name='index'),
 ]
