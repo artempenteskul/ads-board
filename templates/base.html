@@ -1,3 +1,4 @@
+{% load bootstrap4 %}
 {% load static %}
 
 <!doctype html>
@@ -7,10 +8,36 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Main{% endblock %} - Ads Board</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='slim' %}
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
 </head>
-<body>
-    {% block content %}{% endblock %}
+<body class="container-fluid">
+    <header class="mb-4">
+        <h1 class="display-1 text-center">Ads</h1>
+    </header>
+    <div class="row">
+        <ul class="col nav justify-content-end border">
+            <li class="nav-item"><a href="#" class="nav-link">Registration</a></li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Profile
+                </a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">My Ads</a>
+                    <a href="#" class="dropdown-item">Change personal info</a>
+                    <a href="#" class="dropdown-item">Change password</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">Logout</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item">Delete</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Login</a>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
