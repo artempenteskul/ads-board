@@ -5,9 +5,9 @@
 {% block content %}
     <h2>Profile: {{ user.username }}</h2>
     {% if user.first_name and user.last_name %}
-        <p>Hi, {{ user.first_name }} {{ user.last_name }}!</p>
+        <h3>Hi, {{ user.first_name }} {{ user.last_name }}!</h3>
     {% else %}
-        <p>Hi!</p>
+        <h3>Hi!</h3>
     {% endif %}
     <h3>Your ads</h3>
 {% endblock %}
