@@ -101,4 +101,6 @@ STATICFILES_DIRS = [
     'static',
 ]
 
+AUTH_USER_MODEL = 'advert.AdvUser'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
