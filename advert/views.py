@@ -9,6 +9,14 @@ def index(request):
     return render(request, 'index.html')
 
 
+class AdsBoardLoginView(LoginView):
+    template_name = 'login.html'
+
+
+def profile(request):
+    return render(request, 'profile.html')
+
+
 def other_page(request, page):
     try:
         template = get_template(f'{page}.html')
@@ -17,6 +25,3 @@ def other_page(request, page):
 
     return HttpResponse(template.render(request=request))
 
-
-class AdsBoardLoginView(LoginView):
-    template_name = 'login.html'

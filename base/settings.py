@@ -102,7 +102,7 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_URL = 'advert:login'
-LOGIN_REDIRECT_URL = 'advert:index'
+LOGIN_REDIRECT_URL = 'advert:profile'
 
 AUTH_USER_MODEL = 'advert.AdvUser'
 
