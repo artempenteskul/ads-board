@@ -3,7 +3,7 @@ from django import forms
 from .models import AdvUser
 
 
-class ChangeUserInfo(forms.ModelForm):
+class ChangeUserInfoForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='Email')
 
     class Meta:
