@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
@@ -24,6 +24,12 @@ class AdsBoardLoginView(LoginView):
 
 class AdsBoardLogoutView(LogoutView, LoginRequiredMixin):
     template_name = 'logout.html'
+
+
+class AdsBoardPasswordChangeView(PasswordChangeView, LoginRequiredMixin, SuccessMessageMixin):
+    template_name = 'password_change.html'
+    success_url = reverse_lazy('advert:profile')
+    success_message = 'Password was changed'
 
 
 class ChangeUserInfoView(UpdateView, LoginRequiredMixin, SuccessMessageMixin):
