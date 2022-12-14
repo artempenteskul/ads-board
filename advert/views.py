@@ -22,17 +22,17 @@ class AdsBoardLoginView(LoginView):
     template_name = 'login.html'
 
 
-class AdsBoardLogoutView(LogoutView, LoginRequiredMixin):
+class AdsBoardLogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'logout.html'
 
 
-class AdsBoardPasswordChangeView(PasswordChangeView, LoginRequiredMixin, SuccessMessageMixin):
+class AdsBoardPasswordChangeView(LoginRequiredMixin, PasswordChangeView, SuccessMessageMixin):
     template_name = 'password_change.html'
     success_url = reverse_lazy('advert:profile')
     success_message = 'Password was changed'
 
 
-class ChangeUserInfoView(UpdateView, LoginRequiredMixin, SuccessMessageMixin):
+class ChangeUserInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
     model = AdvUser
     template_name = 'change_user_info.html'
     form_class = ChangeUserInfoForm
