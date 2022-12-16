@@ -72,7 +72,7 @@ def user_activate(request, sign):
     user = get_object_or_404(AdvUser, username=username)
 
     if user.is_activated:
-        template = 'user_is_activated_html'
+        template = 'user_is_activated.html'
     else:
         template = 'activation_done.html'
         user.is_active = True
