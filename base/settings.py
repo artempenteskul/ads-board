@@ -107,3 +107,8 @@ LOGIN_REDIRECT_URL = 'advert:profile'
 AUTH_USER_MODEL = 'advert.AdvUser'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# TODO: configure google default smtp settings for email-notifications
+
+EMAIL_PORT = 1025
