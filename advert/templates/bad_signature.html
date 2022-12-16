@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Activation Error{% endblock %}
+
+{% block content %}
+    <h2>Activation</h2>
+    <p>There was an error while user activation.</p>
+    <p>Try to register again <a href="{% url 'advert:register' %}">here.</a></p>
+{% endblock %}

@@ -1,0 +1,9 @@
+Dear user {{ user.username }}
+
+You have registered on the Ads-Board website.
+You need to complete an activation to verify your identity.
+To do this, please follow the link
+
+{{ host }}{% url 'advert:register_activate' sign=sign %}
+
+Goodbye!

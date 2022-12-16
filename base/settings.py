@@ -9,7 +9,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -107,3 +107,10 @@ LOGIN_REDIRECT_URL = 'advert:profile'
 AUTH_USER_MODEL = 'advert.AdvUser'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
