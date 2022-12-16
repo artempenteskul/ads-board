@@ -10,9 +10,11 @@ from django.views.generic.edit import UpdateView, CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.core.signing import BadSignature
 
 from .models import AdvUser
 from .forms import ChangeUserInfoForm, RegisterUserForm
+from .utils import signer
 
 
 def index(request):
@@ -59,6 +61,25 @@ class RegisterUserView(CreateView):
 
 class RegisterDoneView(TemplateView):
     template_name = 'register_done.html'
+
+
+def user_activate(request, sign):
+    try:
+        username = signer.unsign(sign)
+    except BadSignature:
+        return render(request, 'bad_signature.html')
+
+    user = get_object_or_404(AdvUser, username=username)
+
+    if user.is_activated:
+        template = 'user_is_activated_html'
+    else:
+        template = 'activation_done.html'
+        user.is_active = True
+        user.is_activated = True
+        user.save()
+
+    return render(request, template)
 
 
 @login_required
