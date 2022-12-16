@@ -9,7 +9,7 @@ signer = Signer()
 
 def send_activation_notification(user):
     if ALLOWED_HOSTS:
-        host = f'http://{ALLOWED_HOSTS[0]}'
+        host = f'http://{ALLOWED_HOSTS[0]}:8000'
     else:
         host = f'http://localhost:8000'
 
