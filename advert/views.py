@@ -49,6 +49,12 @@ class UserPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'reset_password_done.html'
 
 
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'reset_password_confirm.html'
+    post_reset_login = True
+    success_url = reverse_lazy('advert:index')
+
+
 class ChangeUserInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
     model = AdvUser
     template_name = 'change_user_info.html'
