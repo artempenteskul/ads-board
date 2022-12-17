@@ -41,7 +41,16 @@ class NonActivatedUsersFilter(admin.SimpleListFilter):
 
 
 class AdvUserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('__str__', 'is_activated', 'date_joined')
+    search_fields = ('username', 'email', 'first_name', 'last_name')
+    list_filter = (NonActivatedUsersFilter, )
+    fields = (('username', 'email'), ('first_name', 'last_name'),
+              ('send_messages', 'is_active', 'is_activated'),
+              ('is_staff', 'is_superuser'),
+              'groups', 'user_permissions',
+              ('last_login', 'date_joined'))
+    readonly_fields = ('last_login', 'date_joined')
+    actions = (send_activation_notifications, )
 
 
 admin.site.register(AdvUser)
