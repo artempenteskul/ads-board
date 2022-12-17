@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -35,6 +35,12 @@ class AdsBoardPasswordChangeView(LoginRequiredMixin, PasswordChangeView, Success
     template_name = 'password_change.html'
     success_url = reverse_lazy('advert:profile')
     success_message = 'Password was changed'
+
+
+class UserPasswordResetView(PasswordResetView):
+    template_name = 'reset_password.html'
+    subject_template_name = 'email/reset_password_subject.txt'
+    email_template_name = 'email/reset_password_body.txt'
 
 
 class ChangeUserInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
@@ -84,7 +90,7 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
 
-    
+
 def user_activate(request, sign):
     try:
         username = signer.unsign(sign)
