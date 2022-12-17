@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView
+from django.contrib.auth.views import (LoginView, LogoutView,
+                                       PasswordChangeView, PasswordResetView,
+                                       PasswordResetDoneView, PasswordResetCompleteView, PasswordResetConfirmView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -41,6 +43,10 @@ class UserPasswordResetView(PasswordResetView):
     template_name = 'reset_password.html'
     subject_template_name = 'email/reset_password_subject.txt'
     email_template_name = 'email/reset_password_body.txt'
+
+
+class UserPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'reset_password_done.html'
 
 
 class ChangeUserInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
