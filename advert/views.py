@@ -21,6 +21,9 @@ from .forms import ChangeUserInfoForm, RegisterUserForm
 from .utils import signer
 
 
+# TODO: divide all the functionality into three apps: (advert, user, common)
+
+
 def index(request):
     return render(request, 'index.html')
 
