@@ -4,7 +4,7 @@ from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.contrib.auth.views import (LoginView, LogoutView,
                                        PasswordChangeView, PasswordResetView,
-                                       PasswordResetDoneView, PasswordResetCompleteView, PasswordResetConfirmView)
+                                       PasswordResetDoneView, PasswordResetConfirmView)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -49,10 +49,11 @@ class UserPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'reset_password_done.html'
 
 
-class UserPasswordResetConfirmView(PasswordResetConfirmView):
+class UserPasswordResetConfirmView(PasswordResetConfirmView, SuccessMessageMixin):
     template_name = 'reset_password_confirm.html'
     post_reset_login = True
     success_url = reverse_lazy('advert:index')
+    success_message = 'Password was changed'
 
 
 class ChangeUserInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
