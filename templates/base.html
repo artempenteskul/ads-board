@@ -31,11 +31,12 @@
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'advert:logout' %}" class="dropdown-item">Logout</a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">Delete</a>
+                    <a href="{% url 'advert:profile_delete' %}" class="dropdown-item">Delete</a>
                 </div>
             </li>
             <li class="nav-item">
                 <a href="{% url 'advert:login' %}" class="nav-link">Login</a>
+                <a href="{% url 'advert:password_reset' %}" class="nav-link">Reset Password</a>
             </li>
         </ul>
     </div>
