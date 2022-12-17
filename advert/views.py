@@ -43,7 +43,7 @@ class UserPasswordResetView(PasswordResetView):
     template_name = 'reset_password.html'
     subject_template_name = 'email/reset_password_subject.txt'
     email_template_name = 'email/reset_password_body.txt'
-    success_url = 'advert:reset_password_done'
+    success_url = reverse_lazy('advert:password_reset_done')
 
 
 class UserPasswordResetDoneView(PasswordResetDoneView):
