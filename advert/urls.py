@@ -1,11 +1,12 @@
 from django.urls import path
 
 from .views import (
-    index, other_page, profile,
+    profile,
     AdsBoardLoginView, AdsBoardLogoutView, AdsBoardPasswordChangeView,
     ChangeUserInfoView, RegisterUserView, RegisterDoneView, user_activate, DeleteUserView,
     UserPasswordResetView, UserPasswordResetDoneView, UserPasswordResetConfirmView
 )
+
 
 app_name = 'advert'
 
@@ -22,6 +23,4 @@ urlpatterns = [
     path('register/activate/<str:sign>/', user_activate, name='register_activate'),
     path('register/done/', RegisterDoneView.as_view(), name='register_done'),
     path('register/', RegisterUserView.as_view(), name='register'),
-    path('<str:page>/', other_page, name='other'),
-    path('', index, name='index'),
 ]
