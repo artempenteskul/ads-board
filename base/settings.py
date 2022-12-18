@@ -24,6 +24,8 @@ INSTALLED_APPS = [
 
     # local
     'advert.apps.AdvertConfig',
+    'common.apps.CommonConfig',
+    'user.apps.UserConfig'
 ]
 
 MIDDLEWARE = [
