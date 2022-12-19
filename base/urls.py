@@ -7,6 +7,7 @@ from django.views.decorators.cache import never_cache
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('user.urls', namespace='user')),
     path('', include('advert.urls', namespace='advert')),
     path('', include('common.urls', namespace='common')),
 ]
