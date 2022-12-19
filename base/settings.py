@@ -46,6 +46,8 @@ TEMPLATES = [
         'DIRS': [
             'templates',
             'advert/templates',
+            'user/templates',
+            'common/templates'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -103,10 +105,10 @@ STATICFILES_DIRS = [
     'static',
 ]
 
-LOGIN_URL = 'advert:login'
-LOGIN_REDIRECT_URL = 'advert:profile'
+LOGIN_URL = 'user:login'
+LOGIN_REDIRECT_URL = 'user:profile'
 
-AUTH_USER_MODEL = 'advert.AdvUser'
+AUTH_USER_MODEL = 'user.AdvUser'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
