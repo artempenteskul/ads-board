@@ -105,6 +105,10 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
         return get_object_or_404(queryset, pk=self.user_id)
 
 
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'profile.html'
+
+
 def user_activate(request, sign):
     try:
         username = signer.unsign(sign)
@@ -122,8 +126,3 @@ def user_activate(request, sign):
         user.save()
 
     return render(request, template)
-
-
-@login_required
-def profile(request):
-    return render(request, 'profile.html')
