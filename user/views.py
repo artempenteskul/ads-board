@@ -1,32 +1,39 @@
 from django.shortcuts import render
-from django.contrib.auth.views import (LoginView, LogoutView,
-                                       PasswordChangeView, PasswordResetView,
-                                       PasswordResetDoneView, PasswordResetConfirmView)
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import UpdateView, CreateView, DeleteView
-from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.core.signing import BadSignature
+
+from django.contrib.auth.views import (
+    LoginView, LogoutView,
+    PasswordChangeView, PasswordResetView,
+    PasswordResetDoneView, PasswordResetConfirmView
+)
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
+
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+
 
 from .models import AdvUser
 from .forms import ChangeUserInfoForm, RegisterUserForm
 from .utils import signer
 
 
-class AdsBoardLoginView(LoginView):
+class UserLoginView(LoginView):
     template_name = 'login.html'
 
 
-class AdsBoardLogoutView(LoginRequiredMixin, LogoutView):
+class UserLogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'logout.html'
 
 
-class AdsBoardPasswordChangeView(LoginRequiredMixin, PasswordChangeView, SuccessMessageMixin):
+class UserPasswordChangeView(LoginRequiredMixin, PasswordChangeView, SuccessMessageMixin):
     template_name = 'password_change.html'
     success_url = reverse_lazy('advert:profile')
     success_message = 'Password was changed'
@@ -50,7 +57,7 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView, SuccessMessageMixin
     success_message = 'Password was changed'
 
 
-class ChangeUserInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
+class UserChangeInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
     model = AdvUser
     template_name = 'change_user_info.html'
     form_class = ChangeUserInfoForm
@@ -67,18 +74,18 @@ class ChangeUserInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
         return get_object_or_404(queryset, pk=self.user_id)
 
 
-class RegisterUserView(CreateView):
+class UserRegisterView(CreateView):
     model = AdvUser
     template_name = 'register_user.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('advert:register_done')
 
 
-class RegisterDoneView(TemplateView):
+class UserRegisterDoneView(TemplateView):
     template_name = 'register_done.html'
 
 
-class DeleteUserView(LoginRequiredMixin, DeleteView):
+class UserDeleteView(LoginRequiredMixin, DeleteView):
     model = AdvUser
     template_name = 'delete_user.html'
     success_url = reverse_lazy('advert:index')
