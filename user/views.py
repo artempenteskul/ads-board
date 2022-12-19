@@ -10,7 +10,6 @@ from django.contrib.auth.views import (
 )
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
 from django.views.generic.base import TemplateView
@@ -26,32 +25,32 @@ from .utils import signer
 
 
 class UserLoginView(LoginView):
-    template_name = 'login.html'
+    template_name = 'user/login.html'
 
 
 class UserLogoutView(LoginRequiredMixin, LogoutView):
-    template_name = 'logout.html'
+    template_name = 'user/logout.html'
 
 
 class UserPasswordChangeView(LoginRequiredMixin, PasswordChangeView, SuccessMessageMixin):
-    template_name = 'password_change.html'
+    template_name = 'password/password_change.html'
     success_url = reverse_lazy('advert:profile')
     success_message = 'Password was changed'
 
 
 class UserPasswordResetView(PasswordResetView):
-    template_name = 'reset_password.html'
+    template_name = 'password/reset_password.html'
     subject_template_name = 'email/reset_password_subject.txt'
     email_template_name = 'email/reset_password_body.txt'
     success_url = reverse_lazy('advert:password_reset_done')
 
 
 class UserPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'reset_password_done.html'
+    template_name = 'password/reset_password_done.html'
 
 
 class UserPasswordResetConfirmView(PasswordResetConfirmView, SuccessMessageMixin):
-    template_name = 'reset_password_confirm.html'
+    template_name = 'password/reset_password_confirm.html'
     post_reset_login = True
     success_url = reverse_lazy('advert:index')
     success_message = 'Password was changed'
@@ -59,7 +58,7 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView, SuccessMessageMixin
 
 class UserChangeInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
     model = AdvUser
-    template_name = 'change_user_info.html'
+    template_name = 'user/change_user_info.html'
     form_class = ChangeUserInfoForm
     success_url = reverse_lazy('advert:profile')
     success_message = 'User info was changed'
@@ -76,18 +75,18 @@ class UserChangeInfoView(LoginRequiredMixin, UpdateView, SuccessMessageMixin):
 
 class UserRegisterView(CreateView):
     model = AdvUser
-    template_name = 'register_user.html'
+    template_name = 'registration/register_user.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('advert:register_done')
 
 
 class UserRegisterDoneView(TemplateView):
-    template_name = 'register_done.html'
+    template_name = 'registration/register_done.html'
 
 
 class UserDeleteView(LoginRequiredMixin, DeleteView):
     model = AdvUser
-    template_name = 'delete_user.html'
+    template_name = 'user/delete_user.html'
     success_url = reverse_lazy('advert:index')
 
     def setup(self, request, *args, **kwargs):
@@ -106,14 +105,14 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class UserProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'profile.html'
+    template_name = 'user/profile.html'
 
 
 def user_activate(request, sign):
     try:
         username = signer.unsign(sign)
     except BadSignature:
-        return render(request, 'bad_signature.html')
+        return render(request, 'registration/bad_signature.html')
 
     user = get_object_or_404(AdvUser, username=username)
 
