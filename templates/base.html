@@ -44,13 +44,12 @@
         <nav class="col-md-auto nav flex-column border">
             <a href="{% url 'common:index' %}" class="nav-link root">Home</a>
             <a href="{% url 'common:other' page='about' %}" class="nav-link root">About</a>
-            <span class="nav-link root font-weight-bold">Real Estate</span>
-            <a href="#" class="nav-link">Housing</a>
-            <a href="#" class="nav-link">Warehouses</a>
-            <a href="#" class="nav-link">Garages</a>
-            <span class="nav-link root font-weight-bold">Transport</span>
-            <a href="#" class="nav-link">Passenger</a>
-            <a href="#" class="nav-link">Freight</a>
+            {% for rubric in rubrics %}
+                {% ifchanged rubric.super_rubric.pk %}
+                    <span class="nav-link root font-weight-bold">{{ rubric.super_rubric.name }}</span>
+                {% endifchanged %}
+                <a href="{% url 'advert:by_rubric' pk=rubric.pk %}" class="nav-link">{{ rubric.name }}</a>
+            {% endfor %}
         </nav>
         <section class="col border py-2">
             {% bootstrap_messages %}
