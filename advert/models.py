@@ -1,5 +1,9 @@
 from django.db import models
 
+from user.models import AdvUser
+
+from .utils import get_timestamp_path
+
 
 class Rubric(models.Model):
     name = models.CharField(max_length=32, db_index=True, unique=True, verbose_name='Name')
@@ -41,3 +45,25 @@ class SubRubric(Rubric):
         ordering = ('super_rubric__order', 'super_rubric__name', 'order', 'name')
         verbose_name = 'Sub Rubric'
         verbose_name_plural = 'Sub Rubrics'
+
+
+class Advert(models.Model):
+    title = models.CharField(max_length=64, verbose_name='Product')
+    content = models.TextField(verbose_name='Description')
+    price = models.FloatField(default=0, verbose_name='Price')
+    contacts = models.TextField(verbose_name='Contacts')
+    image = models.ImageField(blank=True, upload_to=get_timestamp_path, verbose_name='Image')
+    author = models.ForeignKey(AdvUser, on_delete=models.CASCADE, verbose_name='Author')
+    rubric = models.ForeignKey(SubRubric, on_delete=models.PROTECT, verbose_name='Rubric')
+    is_active = models.BooleanField(default=True, db_index=True, verbose_name='Is Active?')
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='Created At')
+
+    def delete(self, *args, **kwargs):
+        for ai in self.additionalimage_set.all():
+            ai.delete()
+        super().delete(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Advert'
+        verbose_name_plural = 'Adverts'
+        ordering = ('-created_at',)
