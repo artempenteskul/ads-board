@@ -67,3 +67,13 @@ class Advert(models.Model):
         verbose_name = 'Advert'
         verbose_name_plural = 'Adverts'
         ordering = ('-created_at',)
+
+
+class AdditionalImage(models.Model):
+    advert = models.ForeignKey(Advert, on_delete=models.CASCADE, verbose_name='Advert')
+    image = models.ImageField(upload_to=get_timestamp_path, verbose_name='Image')
+
+    class Meta:
+        verbose_name = 'Additional Image'
+        verbose_name_plural = 'Additional Images'
+
