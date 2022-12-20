@@ -21,6 +21,8 @@ INSTALLED_APPS = [
 
     # third-party
     'bootstrap4',
+    'django_cleanup',
+    'easy_thumbnails',
 
     # local
     'advert.apps.AdvertConfig',
