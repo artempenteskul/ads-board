@@ -28,3 +28,7 @@ def by_rubric(request, pk):
     page = paginator.get_page(page_num)
     context = {'rubric': rubric, 'page': page, 'ads': page.object_list, 'form': form}
     return render(request, 'by_rubric.html', context)
+
+
+def detail(request, rubric_pk, pk):
+    pass
