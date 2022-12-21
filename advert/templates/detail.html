@@ -20,7 +20,7 @@
         </div>
     </div>
     {% if ad_images %}
-        <div class="d-flex justify-content-between flex-wrap mt-5">
+        <div class="d-flex justify-content-around flex-wrap mt-5">
             {% for ad_image in ad_images %}
                 <div>
                     <img src="{{ ad_image.image.url }}" alt="Additional Image" class="additional-image">
@@ -28,5 +28,5 @@
             {% endfor %}
         </div>
     {% endif %}
-    <p><a href="{% url 'advert:by_rubric' pk=ad.rubric.pk %}{{ all }}">Back</a></p>
+    <p class="mt-4"><a href="{% url 'advert:by_rubric' pk=ad.rubric.pk %}{{ all }}">Back</a></p>
 {% endblock %}
