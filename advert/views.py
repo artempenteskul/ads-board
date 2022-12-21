@@ -6,6 +6,10 @@ from .models import SubRubric, Advert
 from .forms import SearchForm
 
 
+def index(request):
+    return render(request, 'index.html')
+
+
 def by_rubric(request, pk):
     rubric = get_object_or_404(SubRubric, pk=pk)
     ads = Advert.objects.filter(is_active=True, rubric=pk)
