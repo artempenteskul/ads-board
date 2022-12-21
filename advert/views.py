@@ -31,4 +31,7 @@ def by_rubric(request, pk):
 
 
 def detail(request, rubric_pk, pk):
-    pass
+    ad = get_object_or_404(Advert, pk=pk)
+    ad_images = ad.additionalimage_set.all()
+    context = {'ad': ad, 'ad_images': ad_images}
+    return render(request, 'detail.html', context)
