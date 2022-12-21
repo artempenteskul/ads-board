@@ -22,7 +22,7 @@
         <ul class="list-unstyled">
             {% for ad in ads %}
                 <li class="media my-5 p-3 border">
-                    {% url 'advert:detail' rubric.pk=rubric.pk pk=ad.pk as url %}
+                    {% url 'advert:detail' rubric_pk=rubric.pk pk=ad.pk as url %}
                     <a href="{{ url }}{{ all }}">
                         {% if ad.image %}
                             <img src="{% thumbnail ad.image 'default' %}" alt="Image" class="mr-3">

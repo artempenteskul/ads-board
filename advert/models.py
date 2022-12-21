@@ -70,7 +70,7 @@ class Advert(models.Model):
 
 
 class AdditionalImage(models.Model):
-    advert = models.ForeignKey('Advert', on_delete=models.CASCADE, verbose_name='Advert')
+    advert = models.ForeignKey(Advert, on_delete=models.CASCADE, verbose_name='Advert')
     image = models.ImageField(upload_to=get_timestamp_path, verbose_name='Image')
 
     class Meta:
