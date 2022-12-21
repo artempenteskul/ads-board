@@ -16,4 +16,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns.append(path('static/<path:path>', never_cache(serve)))
-    urlpatterns.append(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
+    urlpatterns += (static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

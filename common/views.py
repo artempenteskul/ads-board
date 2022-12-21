@@ -4,10 +4,6 @@ from django.template import TemplateDoesNotExist
 from django.template.loader import get_template
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
 def other_page(request, page):
     try:
         template = get_template(f'{page}.html')
