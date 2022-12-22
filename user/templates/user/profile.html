@@ -3,11 +3,10 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-    <h2>Profile: {{ user.username }}</h2>
     {% if user.first_name and user.last_name %}
-        <h3>Hi, {{ user.first_name }} {{ user.last_name }}!</h3>
+        <h2>Hi, {{ user.username }} ({{ user.first_name }} {{ user.last_name }})!</h2>
     {% else %}
-        <h3>Hi!</h3>
+        <h2>Hi, {{ user.username }}!</h2>
     {% endif %}
     <h3>Your ads</h3>
 {% endblock %}
