@@ -7,7 +7,8 @@ from .forms import SearchForm
 
 
 def index(request):
-    return render(request, 'index.html')
+    ads = Advert.objects.filter(is_active=True)[:10]
+    return render(request, 'index.html', {'ads': ads})
 
 
 def by_rubric(request, pk):
