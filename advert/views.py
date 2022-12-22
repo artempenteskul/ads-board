@@ -1,13 +1,16 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .models import SubRubric, Advert
-from .forms import SearchForm
+from .forms import SearchForm, AdvertForm, AIFormSet
 
 
 def index(request):
-    return render(request, 'index.html')
+    ads = Advert.objects.filter(is_active=True)[:10]
+    return render(request, 'index.html', {'ads': ads})
 
 
 def by_rubric(request, pk):
@@ -39,3 +42,49 @@ def detail(request, rubric_pk, pk):
     ad_images = ad.additionalimage_set.all()
     context = {'ad': ad, 'ad_images': ad_images}
     return render(request, 'detail.html', context)
+
+
+@login_required
+def add_ad(request):
+    if request.method == 'POST':
+        form = AdvertForm(request.POST, request.FILES)
+        if form.is_valid():
+            ad = form.save()
+            formset = AIFormSet(request.POST, request.FILES, instance=ad)
+            if formset.is_valid():
+                formset.save()
+                messages.add_message(request, messages.SUCCESS, 'Advert was successfully added')
+                return redirect('user:profile')
+    else:
+        form = AdvertForm(initial={'author': request.user.pk})
+        formset = AIFormSet()
+        return render(request, 'add_ad.html', {'form': form, 'formset': formset})
+
+
+@login_required
+def change_ad(request, pk):
+    ad = get_object_or_404(Advert, pk=pk)
+    if request.method == 'POST':
+        form = AdvertForm(request.POST, request.FILES, instance=ad)
+        if form.is_valid():
+            ad = form.save()
+            formset = AIFormSet(request.POST, request.FILES, instance=ad)
+            if formset.is_valid():
+                formset.save()
+                messages.add_message(request, messages.SUCCESS, 'Advert was successfully changed')
+                return redirect('user:profile')
+    else:
+        form = AdvertForm(instance=ad)
+        formset = AIFormSet(instance=ad)
+        return render(request, 'change_ad.html', {'form': form, 'formset': formset})
+
+
+@login_required
+def delete_ad(request, pk):
+    ad = get_object_or_404(Advert, pk=pk)
+    if request.method == 'POST':
+        ad.delete()
+        messages.add_message(request, messages.SUCCESS, 'Advert was deleted')
+        return redirect('user:profile')
+    else:
+        return render(request, 'delete_ad.html', {'ad': ad})

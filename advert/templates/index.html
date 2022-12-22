@@ -2,5 +2,28 @@
 
 {% block content %}
     <h2>Last 10 Ads</h2>
-    <p>10 Last Ads</p>
+    {% if ads %}
+        <ul class="list-unstyled">
+            {% for ad in ads %}
+                <li class="media my-5 p-3 border">
+                    {% url 'advert:detail' rubric_pk=ad.rubric.pk pk=ad.pk as url %}
+                    <a href="{{ url }}{{ all }}">
+                        {% if ad.image %}
+                                <img src="{% thumbnail ad.image 'default' %}" alt="Image" class="mr-3">
+                        {% endif %}
+                    </a>
+                    <div class="media-body">
+                        <h3><a href="{{ url }}{{ all }}">{{ ad.title }}</a></h3>
+                        <div>{{ ad.content }}</div>
+                        <p class="text-right font-weight-bold">${{ ad.price }}</p>
+                        <p class="text-right font-italic">{{ ad.created_at }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <br>
+        {% bootstrap_pagination page url=keyword %}
+    {% else %}
+        <p>There are no ads yet.</p>
+    {% endif %}
 {% endblock %}

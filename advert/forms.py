@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import SubRubric, SuperRubric
+from .models import SubRubric, SuperRubric, Advert, AdditionalImage
 
 
 class SubRubricForm(forms.ModelForm):
@@ -16,3 +16,13 @@ class SubRubricForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     keyword = forms.CharField(max_length=32, required=False, label='')
+
+
+class AdvertForm(forms.ModelForm):
+    class Meta:
+        model = Advert
+        fields = '__all__'
+        widgets = {'author': forms.HiddenInput}
+
+
+AIFormSet = forms.inlineformset_factory(Advert, AdditionalImage, fields='__all__')
