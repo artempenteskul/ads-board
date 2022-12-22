@@ -45,7 +45,7 @@ def detail(request, rubric_pk, pk):
 
 
 @login_required
-def add_new_ad(request):
+def add_ad(request):
     if request.method == 'POST':
         form = AdvertForm(request.POST, request.FILES)
         if form.is_valid():
@@ -58,7 +58,7 @@ def add_new_ad(request):
     else:
         form = AdvertForm(initial={'author': request.user.pk})
         formset = AIFormSet()
-        return render(request, 'add_new_ad.html', {'form': form, 'formset': formset})
+        return render(request, 'add_ad.html', {'form': form, 'formset': formset})
 
 
 @login_required

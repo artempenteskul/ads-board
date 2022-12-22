@@ -9,7 +9,7 @@
         <h2>Hi, {{ user.username }}!</h2>
     {% endif %}
     <h3 class="mt-3">Your ads</h3>
-    <p><a href="{% url 'advert:add_new_ad' %}">Add new add</a></p>
+    <p><a href="{% url 'advert:add_ad' %}">Add new add</a></p>
     {% if ads %}
         <ul class="list-unstyled">
             {% for ad in ads %}
