@@ -11,6 +11,7 @@ from django.contrib.auth.views import (
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
@@ -18,6 +19,8 @@ from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
+
+from advert.models import Advert
 
 from .models import AdvUser
 from .forms import ChangeUserInfoForm, RegisterUserForm
@@ -104,8 +107,10 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
         return get_object_or_404(queryset, pk=self.user_id)
 
 
-class UserProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'user/profile.html'
+@login_required
+def profile(request):
+    ads = Advert.objects.filter(author=request.user.pk)
+    return render(request, 'user/profile.html', {'ads': ads})
 
 
 def user_activate(request, sign):
