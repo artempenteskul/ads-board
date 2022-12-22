@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from .models import SubRubric, Advert
-from .forms import SearchForm
+from .forms import SearchForm, AdvertForm, AIFormSet
 
 
 def index(request):
@@ -40,3 +42,20 @@ def detail(request, rubric_pk, pk):
     ad_images = ad.additionalimage_set.all()
     context = {'ad': ad, 'ad_images': ad_images}
     return render(request, 'detail.html', context)
+
+
+@login_required
+def add_new_ad(request):
+    if request.method == 'POST':
+        form = AdvertForm(request.POST, request.FILES)
+        if form.is_valid():
+            ad = form.save()
+            formset = AIFormSet(request.POST, request.FILES, instance=ad)
+            if formset.is_valid():
+                formset.save()
+                messages.add_message(request, messages.SUCCESS, 'Advert was successfully added')
+                return redirect('user:profile')
+    else:
+        form = AdvertForm(initial={'author': request.user.pk})
+        formset = AIFormSet()
+        return render(request, 'add_new_ad.html', {'form': form, 'formset': formset})
