@@ -6,6 +6,9 @@ from django.views.decorators.cache import never_cache
 from django.conf.urls.static import static
 
 
+# TODO: pip install django-simlpe-captcha==0.2.15 and add all dependencies to requirements.txt
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('captcha/', include('captcha.urls')),
