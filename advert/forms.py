@@ -1,6 +1,7 @@
 from django import forms
+from captcha.fields import CaptchaField
 
-from .models import SubRubric, SuperRubric, Advert, AdditionalImage
+from .models import SubRubric, SuperRubric, Advert, AdditionalImage, Comment
 
 
 class SubRubricForm(forms.ModelForm):
@@ -26,3 +27,20 @@ class AdvertForm(forms.ModelForm):
 
 
 AIFormSet = forms.inlineformset_factory(Advert, AdditionalImage, fields='__all__')
+
+
+class UserCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ('is_active',)
+        widgets = {'advert': forms.HiddenInput}
+
+
+class GuestCommentForm(forms.ModelForm):
+    captcha = CaptchaField(label='Enter text from the picture',
+                           error_messages={'invalid': 'Wrong text'})
+
+    class Meta:
+        model = Comment
+        exclude = ('is_active',)
+        widgets = {'advert': forms.HiddenInput}
