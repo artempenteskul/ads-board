@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% load thumbnail %}
+{% load static %}
+{% load bootstrap4 %}
+
 {% block title %}{{ ad.title }} - {{ ad.rubric.name }}{% endblock %}
 
 {% block content %}
