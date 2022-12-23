@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% load thumbnail %}
+{% load bootstrap4 %}
+{% load static %}
+
 {% block title %}Profile{% endblock %}
 
 {% block content %}
@@ -14,7 +18,7 @@
         <ul class="list-unstyled">
             {% for ad in ads %}
                 <li class="media my-5 p-3 border">
-                    {% url 'advert:detail' rubric_pk=rubric.pk pk=ad.pk as url %}
+                    {% url 'advert:detail' rubric_pk=ad.rubric.pk pk=ad.pk as url %}
                     <a href="{{ url }}{{ all }}">
                         {% if ad.image %}
                             <img src="{% thumbnail ad.image 'default' %}" alt="Image" class="mr-3">
@@ -33,8 +37,6 @@
                 </li>
             {% endfor %}
         </ul>
-        <br>
-    {% bootstrap_pagination page url=keyword %}
     {% else %}
         <p>You don't have any ads.</p>
     {% endif %}

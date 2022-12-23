@@ -4,8 +4,8 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import SubRubric, Advert
-from .forms import SearchForm, AdvertForm, AIFormSet
+from .models import SubRubric, Advert, Comment
+from .forms import SearchForm, AdvertForm, AIFormSet, UserCommentForm, GuestCommentForm
 
 
 def index(request):
@@ -40,7 +40,27 @@ def by_rubric(request, pk):
 def detail(request, rubric_pk, pk):
     ad = get_object_or_404(Advert, pk=pk)
     ad_images = ad.additionalimage_set.all()
-    context = {'ad': ad, 'ad_images': ad_images}
+    comments = Comment.objects.filter(advert=pk, is_active=True)
+
+    initial = {'advert': ad.pk}
+    if request.user.is_authenticated:
+        initial['author'] = request.user.username
+        form_class = UserCommentForm
+    else:
+        form_class = GuestCommentForm
+
+    form = form_class(initial=initial)
+
+    if request.method == 'POST':
+        c_form = form_class(request.POST)
+        if c_form.is_valid():
+            c_form.save()
+            messages.add_message(request, messages.SUCCESS, 'Comment was added')
+        else:
+            form = c_form
+            messages.add_message(request, messages.WARNING, 'Comment was not added')
+
+    context = {'ad': ad, 'ad_images': ad_images, 'comments': comments, 'form': form}
     return render(request, 'detail.html', context)
 
 

@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% load thumbnail %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}Main{% endblock %}
+
 {% block content %}
     <h2>Last 10 Ads</h2>
     {% if ads %}
@@ -21,8 +27,6 @@
                 </li>
             {% endfor %}
         </ul>
-        <br>
-        {% bootstrap_pagination page url=keyword %}
     {% else %}
         <p>There are no ads yet.</p>
     {% endif %}
